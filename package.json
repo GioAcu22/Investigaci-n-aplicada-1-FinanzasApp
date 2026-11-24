@@ -1,0 +1,9 @@
+{
+  "name": "finanzapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Maqueta responsiva de FinanzApp con HTML y CSS propios.",
+  "dependencies": {
+    "bootstrap": "^5.3.9"
+  }
+}
