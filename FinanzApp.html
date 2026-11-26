@@ -5,41 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Dashboard de finanzas personales: saldo, ingresos, gastos, metas de ahorro y transacciones.">
   <title>FinanzApp | Resumen financiero</title>
-  <!-- Bootstrap local instalado mediante npm. Activar al integrar sus componentes:
+  <!-- Bootstrap instalado localmente con npm. Los estilos propios se cargan después. -->
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-  -->
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <input class="menu-state" type="checkbox" id="menu-lateral" aria-label="Abrir o cerrar menú de navegación" aria-controls="navegacion">
 
   <!-- 1. Navbar: logo, perfil y control móvil. -->
-  <header class="navbar">
+  <header class="navbar navbar-light">
     <a class="brand" href="#resumen" aria-label="FinanzApp, inicio"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>FinanzApp</a>
     <div class="navbar-end">
       <div class="profile"><span class="avatar" aria-hidden="true">US</span><span class="profile-name">Usuario</span></div>
-      <label class="menu-toggle" for="menu-lateral" title="Abrir o cerrar menú"><span aria-hidden="true"></span></label>
+      <button class="navbar-toggler menu-toggle d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navegacion" aria-controls="navegacion" aria-label="Abrir menú de navegación"><span class="navbar-toggler-icon" aria-hidden="true"></span></button>
     </div>
   </header>
 
+  <!-- Distribución exterior de 12 columnas: navegación 2 y contenido 10 desde lg. -->
+  <div class="container-fluid px-0">
+  <div class="row g-0">
   <!-- 2. Sidebar: fija en escritorio, panel deslizable en móvil y tablet. -->
-  <aside class="sidebar" id="navegacion">
+  <aside class="sidebar col-lg-2 offcanvas-lg offcanvas-start" id="navegacion" tabindex="-1" aria-labelledby="titulo-navegacion">
+    <div class="offcanvas-header d-lg-none">
+      <h2 class="offcanvas-title fs-5" id="titulo-navegacion">FinanzApp</h2>
+      <button class="btn-close" type="button" data-bs-dismiss="offcanvas" data-bs-target="#navegacion" aria-label="Cerrar menú"></button>
+    </div>
+    <div class="offcanvas-body">
     <p class="nav-caption">Mi espacio</p>
     <nav aria-label="Navegación principal">
-      <ul>
-        <li><a href="#resumen" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span>Inicio</a></li>
-        <li><a href="#cuentas"><span class="nav-icon" aria-hidden="true">▤</span>Cuentas</a></li>
-        <li><a href="#transacciones"><span class="nav-icon" aria-hidden="true">⇄</span>Transacciones</a></li>
-        <li><a href="#presupuestos"><span class="nav-icon" aria-hidden="true">◴</span>Presupuestos</a></li>
-        <li><a href="#metas"><span class="nav-icon" aria-hidden="true">◎</span>Metas de ahorro</a></li>
-        <li><a href="#reportes"><span class="nav-icon" aria-hidden="true">▥</span>Reportes</a></li>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#resumen" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span>Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cuentas"><span class="nav-icon" aria-hidden="true">▤</span>Cuentas</a></li>
+        <li class="nav-item"><a class="nav-link" href="#transacciones"><span class="nav-icon" aria-hidden="true">⇄</span>Transacciones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#presupuestos"><span class="nav-icon" aria-hidden="true">◴</span>Presupuestos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#metas"><span class="nav-icon" aria-hidden="true">◎</span>Metas de ahorro</a></li>
+        <li class="nav-item"><a class="nav-link" href="#reportes"><span class="nav-icon" aria-hidden="true">▥</span>Reportes</a></li>
       </ul>
     </nav>
     <div class="sidebar-note"><strong>Cada paso cuenta.</strong>Organiza tu presente.<br>Construye tu futuro.</div>
+    </div>
   </aside>
-  <label class="backdrop" for="menu-lateral" aria-hidden="true"></label>
 
+  <div class="dashboard-content col-12 col-lg-10 ms-lg-auto">
   <main id="contenido">
     <section id="resumen" aria-labelledby="titulo">
       <div class="page-heading">
@@ -48,17 +55,18 @@
       </div>
 
       <!-- 3. KPIs: 1 columna en xs, 2 en sm/md y 4 desde lg. Datos ilustrativos. -->
-      <div class="kpis" aria-label="Indicadores clave">
-        <article class="card kpi kpi-primary" id="cuentas"><div class="kpi-top"><h2>Saldo total</h2><span class="kpi-icon" aria-hidden="true">▤</span></div><p class="kpi-value">$24,850.00</p><p>Disponible en todas tus cuentas</p></article>
-        <article class="card kpi"><div class="kpi-top"><h2>Ingresos del mes</h2><span class="kpi-icon" aria-hidden="true">↙</span></div><p class="kpi-value">$6,420.00</p><p><span class="positive">+8.2%</span> frente al mes anterior</p></article>
-        <article class="card kpi" id="presupuestos"><div class="kpi-top"><h2>Gastos del mes</h2><span class="kpi-icon" aria-hidden="true">↗</span></div><p class="kpi-value">$2,980.00</p><p>De un presupuesto de $3,500.00</p></article>
-        <article class="card kpi"><div class="kpi-top"><h2>Ahorro del mes</h2><span class="kpi-icon" aria-hidden="true">◎</span></div><p class="kpi-value">$3,440.00</p><p><span class="positive">53.6%</span> de tus ingresos</p></article>
+      <div class="kpis row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3" aria-label="Indicadores clave">
+        <div class="col"><article class="card h-100 kpi kpi-primary" id="cuentas"><div class="kpi-top"><h2>Saldo total</h2><span class="kpi-icon" aria-hidden="true">▤</span></div><p class="kpi-value">$24,850.00</p><p>Disponible en todas tus cuentas</p></article></div>
+        <div class="col"><article class="card h-100 kpi"><div class="kpi-top"><h2>Ingresos del mes</h2><span class="kpi-icon" aria-hidden="true">↙</span></div><p class="kpi-value">$6,420.00</p><p><span class="positive">+8.2%</span> frente al mes anterior</p></article></div>
+        <div class="col"><article class="card h-100 kpi"><div class="kpi-top"><h2>Gastos del mes</h2><span class="kpi-icon" aria-hidden="true">↗</span></div><p class="kpi-value">$2,980.00</p><p>De un presupuesto de $3,500.00</p></article></div>
+        <div class="col"><article class="card h-100 kpi"><div class="kpi-top"><h2>Ahorro del mes</h2><span class="kpi-icon" aria-hidden="true">◎</span></div><p class="kpi-value">$3,440.00</p><p><span class="positive">53.6%</span> de tus ingresos</p></article></div>
       </div>
     </section>
 
-    <div class="analytics">
+    <div class="analytics row g-4">
       <!-- 4. Canvas con imagen de fondo aplicada desde CSS, sin JavaScript. -->
-      <section class="card panel" id="reportes" aria-labelledby="titulo-grafico">
+      <div class="col-12 col-lg-8">
+      <section class="card panel h-100" id="reportes" aria-labelledby="titulo-grafico">
         <div class="panel-heading"><div><h2 id="titulo-grafico">Gastos por categoría</h2><p>Conoce a dónde va tu dinero</p></div><span class="tag">Este mes</span></div>
         <p class="chart-total">$2,980.00 <small>en gastos totales</small></p>
         <figure>
@@ -71,21 +79,42 @@
         </figure>
       </section>
 
-      <!-- 5. Metas: barras nativas accesibles, estilizadas con CSS. -->
-      <section class="card panel" id="metas" aria-labelledby="titulo-metas">
+      </div>
+
+      <!-- 5. Metas con el componente progress de Bootstrap. -->
+      <div class="col-12 col-lg-4">
+      <section class="card panel h-100" id="metas" aria-labelledby="titulo-metas">
         <div class="panel-heading"><div><h2 id="titulo-metas">Metas de ahorro</h2><p>Más cerca de lo que te propones</p></div></div>
-        <div class="goal"><div class="goal-line"><h3 id="meta-emergencia">Fondo de emergencia</h3><span>75%</span></div><progress value="75" max="100" aria-labelledby="meta-emergencia">75%</progress><p><span>$3,750 ahorrados</span><span>de $5,000</span></p></div>
-        <div class="goal"><div class="goal-line"><h3 id="meta-viaje">Viaje</h3><span>45%</span></div><progress value="45" max="100" aria-labelledby="meta-viaje">45%</progress><p><span>$900 ahorrados</span><span>de $2,000</span></p></div>
-        <div class="goal"><div class="goal-line"><h3 id="meta-educacion">Educación</h3><span>30%</span></div><progress value="30" max="100" aria-labelledby="meta-educacion">30%</progress><p><span>$450 ahorrados</span><span>de $1,500</span></p></div>
+        <div class="goal"><div class="goal-line"><h3 id="meta-emergencia">Fondo de emergencia</h3><span>75%</span></div><div class="progress" role="progressbar" aria-labelledby="meta-emergencia" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar goal-progress-75"></div></div><p><span>$3,750 ahorrados</span><span>de $5,000</span></p></div>
+        <div class="goal"><div class="goal-line"><h3 id="meta-viaje">Viaje</h3><span>45%</span></div><div class="progress" role="progressbar" aria-labelledby="meta-viaje" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar goal-progress-45"></div></div><p><span>$900 ahorrados</span><span>de $2,000</span></p></div>
+        <div class="goal"><div class="goal-line"><h3 id="meta-educacion">Educación</h3><span>30%</span></div><div class="progress" role="progressbar" aria-labelledby="meta-educacion" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar goal-progress-30"></div></div><p><span>$450 ahorrados</span><span>de $1,500</span></p></div>
         <p class="goals-note">Un pequeño ahorro hoy, más posibilidades mañana.</p>
       </section>
+      </div>
     </div>
+
+    <section class="card panel budgets" id="presupuestos" aria-labelledby="titulo-presupuestos">
+      <div class="panel-heading"><div><h2 id="titulo-presupuestos">Presupuestos</h2><p>Control de gastos por categoría · Mayo de 2025</p></div><span class="tag">USD</span></div>
+      <div class="row row-cols-1 row-cols-sm-3 g-3 budget-summary">
+        <div class="col"><p>Presupuesto del mes<strong>$3,500.00</strong></p></div>
+        <div class="col"><p>Gastado<strong>$2,980.00</strong></p></div>
+        <div class="col"><p>Disponible<strong class="positive">$520.00</strong></p></div>
+      </div>
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col goal budget-item"><div class="goal-line"><h3 id="presupuesto-alimentacion">Alimentación</h3><span>92%</span></div><div class="progress" role="progressbar" aria-labelledby="presupuesto-alimentacion" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar budget-food"></div></div><p><span>$920 de $1,000</span><span>Quedan $80</span></p></div>
+        <div class="col goal budget-item"><div class="goal-line"><h3 id="presupuesto-hogar">Hogar</h3><span>91.7%</span></div><div class="progress" role="progressbar" aria-labelledby="presupuesto-hogar" aria-valuenow="91.7" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar budget-home"></div></div><p><span>$1,100 de $1,200</span><span>Quedan $100</span></p></div>
+        <div class="col goal budget-item"><div class="goal-line"><h3 id="presupuesto-transporte">Transporte</h3><span>80%</span></div><div class="progress" role="progressbar" aria-labelledby="presupuesto-transporte" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar budget-transport"></div></div><p><span>$480 de $600</span><span>Quedan $120</span></p></div>
+        <div class="col goal budget-item"><div class="goal-line"><h3 id="presupuesto-ocio">Ocio</h3><span>70%</span></div><div class="progress" role="progressbar" aria-labelledby="presupuesto-ocio" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar budget-leisure"></div></div><p><span>$280 de $400</span><span>Quedan $120</span></p></div>
+        <div class="col goal budget-item"><div class="goal-line"><h3 id="presupuesto-otros">Otros</h3><span>66.7%</span></div><div class="progress" role="progressbar" aria-labelledby="presupuesto-otros" aria-valuenow="66.7" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar budget-other"></div></div><p><span>$200 de $300</span><span>Quedan $100</span></p></div>
+      </div>
+      <p class="goals-note">Datos de ejemplo · Has utilizado el 85.1% de tu presupuesto mensual.</p>
+    </section>
 
     <!-- 6. Tabla con desplazamiento horizontal contenido en pantallas pequeñas. -->
     <section class="card transactions" id="transacciones" aria-labelledby="titulo-transacciones">
       <div class="panel-heading"><div><h2 id="titulo-transacciones">Transacciones recientes</h2><p>Tus últimos movimientos, en un solo lugar</p></div><span class="tag">4 movimientos</span></div>
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Transacciones recientes; desplázate horizontalmente si es necesario">
-        <table>
+      <div class="table-responsive" tabindex="0" role="region" aria-label="Transacciones recientes; desplázate horizontalmente si es necesario">
+        <table class="table table-hover align-middle mb-0">
           <caption>Últimas transacciones de mayo de 2025. Montos expresados en dólares estadounidenses.</caption>
           <thead><tr><th scope="col">Fecha</th><th scope="col">Descripción</th><th scope="col">Categoría</th><th scope="col">Cuenta</th><th scope="col" class="amount">Monto</th><th scope="col">Estado</th></tr></thead>
           <tbody>
@@ -102,8 +131,9 @@
 
   <!-- 7. Footer con créditos del equipo y año. -->
   <footer><p>© 2025 <strong>FinanzApp.</strong> Todos los derechos reservados.</p><p>Equipo FinanzApp · Lenguajes Interpretados en el Cliente · UDB</p></footer>
-  <!-- Activar al integrar los componentes de Bootstrap:
+  </div>
+  </div>
+  </div>
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  -->
 </body>
 </html>
